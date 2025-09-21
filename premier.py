@@ -13,20 +13,70 @@ import numpy as np
 pd.set_option('display.max_columns', None)
 pd.set_option('display.max_rows', None)
 
-df = pd.read_csv('/content/Football.csv')
+df = pd.read_csv('Football.csv')
 
 df = df.drop(['Date_day','Date_hour','home_team_goals','home_team_goals_assist','away_team_goals','away_team_goals_assist','home_team_yellow_card_current_time','away_team_yellow_card_current_time','home_team_yellow_card','away_team_yellow_card','home_team_yellow_card_why','away_team_yellow_card_why',
 'home_team_red_card_current_time',	'home_team_red_card',	'home_team_red_card_why',	'away_team_red_card_current_time',	'away_team_red_card',	'away_team_red_card_why',	'home_team_substitutions_current_time',	'home_team_substitutions',	'home_team_substitutions_with',	'home_team_substitution_why',	'away_team_substitutions_current_time',	'away_team_substitutions',	'away_team_substitutions_with',	'away_team_substitution_why',
 'Pass_Success_per_Host','Pass_Success_per_Home','Clearances_Completed_Host','Clearances_Completed_Home','Distance_Covered_(km)_Home','Distance_Covered_(km)_Host','Interceptions_Home','Interceptions_Host','Crosses_Completed_Host','Crosses_Completed_Home','Completed_Passes_Home','Completed_Passes_Host'],axis=1)
 
 df = df[(df.League=='Premier-league') & (df.season_year.isin(['2022/2023'])) & ((df.home_team=='Arsenal') | (df.away_team=='Arsenal'))]
-display(df)
 
 import ast
 
 
 df['home_score'] = pd.to_numeric(df['home_score'], errors='coerce').fillna(0)
 df['away_score'] = pd.to_numeric(df['away_score'], errors='coerce').fillna(0)
+
+
+class MinutoPartido:
+  def __init__(self, minuto: str):
+    if "+" in minuto:
+      self.minuto = int(minuto.split("+")[0])
+      self.adicional = int(minuto.split("+")[1])
+    else:
+      self.minuto = int(minuto)
+      self.adicional = 0
+    if self.minuto <= 45:
+      self.periodo = 1
+    else:
+      self.periodo = 2
+    
+  def __str__(self):
+      return f"{self.minuto}+{self.adicional} (Periodo {self.periodo})"
+    
+  def __gt__(self, other):
+      if self.minuto == other.minuto:
+        return self.adicional > other.adicional
+      return self.minuto > other.minuto
+  
+  
+def cambio_resultados(home_team_goals_current_time: str, away_team_goals_current_time: str) -> int:
+  home_team_goals_current_time = ast.literal_eval(home_team_goals_current_time) if isinstance(home_team_goals_current_time, str) else home_team_goals_current_time
+  away_team_goals_current_time = ast.literal_eval(away_team_goals_current_time) if isinstance(away_team_goals_current_time, str) else away_team_goals_current_time
+  
+  away_goals = [(MinutoPartido(i), "away") for i in away_team_goals_current_time]
+  home_goals = [(MinutoPartido(i), "home") for i in home_team_goals_current_time]
+
+  all_goals = away_goals + home_goals
+  all_goals.sort(key=lambda x: x[0])
+  
+  diferencia = 0
+  anterior = 0
+  cambios = 0
+  
+  for _, equipo in all_goals:
+    
+    anterior = diferencia
+    
+    if equipo == "home":
+      diferencia += 1
+    else:
+      diferencia -= 1
+      
+    if anterior in [0, 1, -1] and diferencia in [0, 1, -1]:
+      cambios += 1
+      
+  return cambios
 
 
 def goles_primer_tiempo(minutos_goles):
@@ -72,7 +122,7 @@ def goles_segundo_tiempo(minutos_goles):
 #def cantidad_cambios_resultado(fila):
 
 
-def armar_lista_cambios(lista_minutos,lista_cambio_goles):
+def armar_lista_cambios(lista_minutos, lista_cambio_goles):
   lista_minutos = ast.literal_eval(lista_minutos) if isinstance(lista_minutos, str) else lista_minutos
   lista_cambio_goles = ast.literal_eval(lista_cambio_goles) if isinstance(lista_cambio_goles, str) else lista_cambio_goles
 
@@ -101,6 +151,8 @@ def armar_lista_cambios(lista_minutos,lista_cambio_goles):
       print(f"Error de valor: {e}")
 
   return lista_cambios
+
+
 
 def armar_lista_cambios_unificada_ordenada(lista_cambios_home,lista_cambios_away):
 
@@ -166,14 +218,46 @@ df["total_goals_away_second_half"] = df["away_team_goals_current_time"].apply(go
 
 df["changes_in_result"] = df.apply(contar_cambios_resultado_fila,axis=1)
 
-df
 
 df_aggregated1 = df.groupby(['home_team']).agg(total_goals_home=('home_score','sum'),total_goals_home_first_half=('total_goals_home_first_half','sum'),total_goals_home_second_half=('total_goals_home_second_half','sum'))
 df_aggregated2 = df.groupby(['away_team']).agg(total_goals_away=('away_score','sum'),total_goals_away_first_half=('total_goals_away_first_half','sum'),total_goals_away_second_half=('total_goals_away_second_half','sum'))
 
-display(df_aggregated1)
-display(df_aggregated2)
+ 
+# Estadisticas / partido 
+# home_team ok
+# away_team ok 
+# goles en el primer tiempo -> first_half -> pasar a int
+# goles en el segundo tiempo -> second_half -> pasar a int
+# cambios en el resultado del partido (de empate a gana uno, de gana a empata, etc) -> funcion de bauti ok
+# amarillas -> home_team_yellow_card + away_team_yellow_card
+# rojas -> home_team_red_card + away_team_red_card
+# x_goals_home -> expected_goals_xg_home
+# x_goals_away -> expected_goals_xg_away
+# posesion_home -> Ball_Possession_Home
+# posesion_away -> Ball_Possession_Host
+# chances de gol total -> Goal_Attempts_Home + Goal_Attempts_Host -> para el proposito de determinar un "buen partido", importan más las chances de gol en general que de cada equipo
+# fouls_total -> Fouls_Committed_Home + Fouls_Committed_Host
+# corners_home -> Corner_Kicks_Home
+# corners_away -> Corner_Kicks_Host
+# pass_accuracy_home -> Pass_Success_per_Home
+# pass_accuracy_away -> Pass_Success_per_Host
+# total_passes_home -> Completed_Passes_Home
+# total_passes_away -> Completed_Passes_Host
+# saves_home -> Goalkeeper_Saves_Home
+# saves_away -> Goalkeeper_Saves_Host
 
-merged_df = pd.merge(df_aggregated1, df_aggregated2, left_on='home_team', right_on='away_team', how='inner').drop(['level_0_x','index_x',
-'level_0_y','index_y','away_team'],axis=1).rename(columns={'home_team': 'team'})
-merged_df
+ 
+# Posición en la tabla (a mitad de temporada) -> para despues
+# Promedio de goles en el primer tiempo -> first_half -> pasar a int
+# Promedio de goles en el segundo tiempo -> second_half -> pasar a int
+# Promedio de cambios en el resultado del partido (de empate a gana uno, de gana a empata, etc) -> funcion de bauti
+# Promedio de amarillas -> home_team_yellow_card + away_team_yellow_card
+# Promedio de rojas -> home_team_red_card + away_team_red_card
+# Promedio x_goals (habría que ver cuánto se corresponde con goles) 
+# Promedio de posesión
+# Promedio de chances de gol
+# Promedio de faltas recibidas
+# Promedio de faltas cometidas
+# Promedio de corners
+# Promedio atajadas a favor 
+# Promedio atajadas en contra 
