@@ -220,8 +220,8 @@ if __name__ == "__main__":
     # Replace 'input.csv' with your actual input file path
     # Replace 'output.csv' with your desired output file path
     
-    input_file = 'Football.csv'  # Your input CSV file
-    output_file = 'processed_football_stats.csv'  # Output file
+    input_file = 'data/Football.csv'  # Your input CSV file
+    output_file = 'data/processed_football_stats.csv'  # Output file
     
     try:
         processed_data = process_football_data(input_file, output_file)

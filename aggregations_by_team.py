@@ -96,8 +96,8 @@ def aggregate_team_stats(input_csv_path, output_csv_path):
 # Example usage
 if __name__ == "__main__":
     # Replace with your actual file paths
-    input_file = "first_round.csv"
-    output_file = "team_averages.csv"
+    input_file = "data/first_round.csv"
+    output_file = "data/team_averages.csv"
     
     # Run the aggregation
     team_stats = aggregate_team_stats(input_file, output_file)
