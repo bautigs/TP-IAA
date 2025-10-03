@@ -1,0 +1,205 @@
+match_id,home_team,away_team,cluster
+Liverpool vs Brentford,Liverpool,Brentford,0
+Liverpool vs Nottingham,Liverpool,Nottingham,0
+Liverpool vs Everton,Liverpool,Everton,0
+Manchester City vs Aston Villa,Manchester City,Aston Villa,0
+Manchester City vs Arsenal,Manchester City,Arsenal,0
+Liverpool vs Wolves,Liverpool,Wolves,0
+Manchester City vs Newcastle,Manchester City,Newcastle,0
+Liverpool vs Tottenham,Liverpool,Tottenham,0
+Liverpool vs Fulham,Liverpool,Fulham,0
+Manchester City vs West Ham,Manchester City,West Ham,0
+Liverpool vs Arsenal,Liverpool,Arsenal,0
+Manchester City vs Leeds,Manchester City,Leeds,0
+Manchester City vs Liverpool,Manchester City,Liverpool,0
+Manchester City vs Wolves,Manchester City,Wolves,0
+Manchester City vs Leicester,Manchester City,Leicester,0
+Manchester City vs Tottenham,Manchester City,Tottenham,0
+Manchester City vs Chelsea,Manchester City,Chelsea,0
+Liverpool vs Chelsea,Liverpool,Chelsea,0
+Liverpool vs Aston Villa,Liverpool,Aston Villa,0
+Liverpool vs Manchester Utd,Liverpool,Manchester Utd,0
+Leicester vs Tottenham,Leicester,Tottenham,1
+Bournemouth vs Fulham,Bournemouth,Fulham,1
+Everton vs Brentford,Everton,Brentford,1
+Everton vs Leeds,Everton,Leeds,1
+Southampton vs Brentford,Southampton,Brentford,1
+Southampton vs Tottenham,Southampton,Tottenham,1
+Leeds vs Tottenham,Leeds,Tottenham,1
+Chelsea vs Brentford,Chelsea,Brentford,1
+Aston Villa vs Fulham,Aston Villa,Fulham,1
+Newcastle vs Tottenham,Newcastle,Tottenham,1
+Aston Villa vs Leeds,Aston Villa,Leeds,1
+Brighton vs Fulham,Brighton,Fulham,1
+Fulham vs Leeds,Fulham,Leeds,1
+Manchester Utd vs Fulham,Manchester Utd,Fulham,1
+Bournemouth vs Leeds,Bournemouth,Leeds,1
+Manchester Utd vs Leeds,Manchester Utd,Leeds,1
+Wolves vs Tottenham,Wolves,Tottenham,1
+Nottingham vs Leeds,Nottingham,Leeds,1
+Newcastle vs Fulham,Newcastle,Fulham,1
+West Ham vs Leeds,West Ham,Leeds,1
+Brentford vs Fulham,Brentford,Fulham,1
+Everton vs Fulham,Everton,Fulham,1
+Everton vs Tottenham,Everton,Tottenham,1
+Chelsea vs Fulham,Chelsea,Fulham,1
+Fulham vs Tottenham,Fulham,Tottenham,1
+Manchester Utd vs Brentford,Manchester Utd,Brentford,1
+Leeds vs Brentford,Leeds,Brentford,1
+Aston Villa vs Tottenham,Aston Villa,Tottenham,1
+Southampton vs Fulham,Southampton,Fulham,1
+Wolves vs Leeds,Wolves,Leeds,1
+Wolves vs Brentford,Wolves,Brentford,1
+Chelsea vs Leeds,Chelsea,Leeds,1
+Fulham vs Chelsea,Fulham,Chelsea,2
+Brighton vs Brentford,Brighton,Brentford,2
+Arsenal vs Crystal Palace,Arsenal,Crystal Palace,2
+Brighton vs Crystal Palace,Brighton,Crystal Palace,2
+Arsenal vs Leeds,Arsenal,Leeds,2
+Manchester Utd vs Everton,Manchester Utd,Everton,2
+Brighton vs Wolves,Brighton,Wolves,2
+Tottenham vs Brighton,Tottenham,Brighton,2
+Manchester Utd vs Chelsea,Manchester Utd,Chelsea,2
+Newcastle vs Leicester,Newcastle,Leicester,2
+Brighton vs Southampton,Brighton,Southampton,2
+Fulham vs Crystal Palace,Fulham,Crystal Palace,2
+Tottenham vs Brentford,Tottenham,Brentford,2
+Arsenal vs Brighton,Arsenal,Brighton,2
+Manchester Utd vs Wolves,Manchester Utd,Wolves,2
+Brighton vs Everton,Brighton,Everton,2
+Fulham vs West Ham,Fulham,West Ham,2
+Fulham vs Leicester,Fulham,Leicester,2
+Brighton vs Manchester Utd,Brighton,Manchester Utd,2
+Arsenal vs Chelsea,Arsenal,Chelsea,2
+Manchester Utd vs Aston Villa,Manchester Utd,Aston Villa,2
+Newcastle vs Southampton,Newcastle,Southampton,2
+Newcastle vs Wolves,Newcastle,Wolves,2
+Tottenham vs Manchester Utd,Tottenham,Manchester Utd,2
+Arsenal vs Southampton,Arsenal,Southampton,2
+Tottenham vs Bournemouth,Tottenham,Bournemouth,2
+Tottenham vs Crystal Palace,Tottenham,Crystal Palace,2
+Manchester Utd vs Southampton,Manchester Utd,Southampton,2
+Newcastle vs Manchester Utd,Newcastle,Manchester Utd,2
+Arsenal vs Wolves,Arsenal,Wolves,2
+Arsenal vs Brentford,Arsenal,Brentford,2
+Newcastle vs West Ham,Newcastle,West Ham,2
+Arsenal vs Manchester Utd,Arsenal,Manchester Utd,2
+Tottenham vs Chelsea,Tottenham,Chelsea,2
+Arsenal vs Everton,Arsenal,Everton,2
+Brighton vs West Ham,Brighton,West Ham,2
+Brighton vs Bournemouth,Brighton,Bournemouth,2
+Arsenal vs Bournemouth,Arsenal,Bournemouth,2
+Manchester Utd vs Crystal Palace,Manchester Utd,Crystal Palace,2
+Fulham vs Wolves,Fulham,Wolves,2
+Manchester Utd vs Leicester,Manchester Utd,Leicester,2
+Tottenham vs West Ham,Tottenham,West Ham,2
+Tottenham vs Nottingham,Tottenham,Nottingham,2
+Wolves vs Crystal Palace,Wolves,Crystal Palace,3
+Leicester vs Everton,Leicester,Everton,3
+Leicester vs Wolves,Leicester,Wolves,3
+Fulham vs Nottingham,Fulham,Nottingham,3
+Crystal Palace vs Everton,Crystal Palace,Everton,3
+Southampton vs Wolves,Southampton,Wolves,3
+Brentford vs Aston Villa,Brentford,Aston Villa,3
+Bournemouth vs West Ham,Bournemouth,West Ham,3
+Brentford vs Crystal Palace,Brentford,Crystal Palace,3
+Brentford vs Nottingham,Brentford,Nottingham,3
+West Ham vs Chelsea,West Ham,Chelsea,3
+Leeds vs Leicester,Leeds,Leicester,3
+Crystal Palace vs West Ham,Crystal Palace,West Ham,3
+Southampton vs Bournemouth,Southampton,Bournemouth,3
+Bournemouth vs Chelsea,Bournemouth,Chelsea,3
+Brentford vs Southampton,Brentford,Southampton,3
+Leicester vs West Ham,Leicester,West Ham,3
+Brentford vs Bournemouth,Brentford,Bournemouth,3
+Crystal Palace vs Nottingham,Crystal Palace,Nottingham,3
+Nottingham vs Leicester,Nottingham,Leicester,3
+Wolves vs West Ham,Wolves,West Ham,3
+Everton vs Southampton,Everton,Southampton,3
+Chelsea vs Crystal Palace,Chelsea,Crystal Palace,3
+Wolves vs Everton,Wolves,Everton,3
+West Ham vs Everton,West Ham,Everton,3
+Brentford vs West Ham,Brentford,West Ham,3
+Crystal Palace vs Bournemouth,Crystal Palace,Bournemouth,3
+Southampton vs Aston Villa,Southampton,Aston Villa,3
+Chelsea vs Nottingham,Chelsea,Nottingham,3
+Bournemouth vs Nottingham,Bournemouth,Nottingham,3
+Nottingham vs Southampton,Nottingham,Southampton,3
+Aston Villa vs Leicester,Aston Villa,Leicester,3
+Chelsea vs Southampton,Chelsea,Southampton,3
+Wolves vs Aston Villa,Wolves,Aston Villa,3
+Wolves vs Bournemouth,Wolves,Bournemouth,3
+West Ham vs Aston Villa,West Ham,Aston Villa,3
+Aston Villa vs Bournemouth,Aston Villa,Bournemouth,3
+Chelsea vs Aston Villa,Chelsea,Aston Villa,3
+Everton vs Bournemouth,Everton,Bournemouth,3
+West Ham vs Southampton,West Ham,Southampton,3
+Aston Villa vs Crystal Palace,Aston Villa,Crystal Palace,3
+Leicester vs Aston Villa,Leicester,Aston Villa,3
+Leeds vs Nottingham,Leeds,Nottingham,3
+Brentford vs Leicester,Brentford,Leicester,3
+Southampton vs Leicester,Southampton,Leicester,3
+Aston Villa vs Nottingham,Aston Villa,Nottingham,3
+Nottingham vs Everton,Nottingham,Everton,3
+Crystal Palace vs Leicester,Crystal Palace,Leicester,3
+Chelsea vs Everton,Chelsea,Everton,3
+Everton vs Aston Villa,Everton,Aston Villa,3
+Leicester vs Bournemouth,Leicester,Bournemouth,3
+Wolves vs Chelsea,Wolves,Chelsea,3
+Nottingham vs Wolves,Nottingham,Wolves,3
+Southampton vs Crystal Palace,Southampton,Crystal Palace,3
+Leeds vs Crystal Palace,Leeds,Crystal Palace,3
+Leicester vs Chelsea,Leicester,Chelsea,3
+West Ham vs Nottingham,West Ham,Nottingham,3
+Leeds vs Southampton,Leeds,Southampton,3
+Nottingham vs Newcastle,Nottingham,Newcastle,4
+Southampton vs Liverpool,Southampton,Liverpool,4
+Bournemouth vs Liverpool,Bournemouth,Liverpool,4
+Fulham vs Arsenal,Fulham,Arsenal,4
+Leeds vs Newcastle,Leeds,Newcastle,4
+Brighton vs Liverpool,Brighton,Liverpool,4
+Everton vs Manchester City,Everton,Manchester City,4
+Leicester vs Brighton,Leicester,Brighton,4
+Newcastle vs Brighton,Newcastle,Brighton,4
+Nottingham vs Arsenal,Nottingham,Arsenal,4
+Bournemouth vs Manchester Utd,Bournemouth,Manchester Utd,4
+Chelsea vs Newcastle,Chelsea,Newcastle,4
+Crystal Palace vs Manchester Utd,Crystal Palace,Manchester Utd,4
+Brentford vs Manchester City,Brentford,Manchester City,4
+Tottenham vs Arsenal,Tottenham,Arsenal,4
+Aston Villa vs Brighton,Aston Villa,Brighton,4
+Manchester Utd vs Manchester City,Manchester Utd,Manchester City,4
+Brighton vs Manchester City,Brighton,Manchester City,4
+Crystal Palace vs Manchester City,Crystal Palace,Manchester City,4
+Leicester vs Liverpool,Leicester,Liverpool,4
+Nottingham vs Manchester City,Nottingham,Manchester City,4
+West Ham vs Manchester Utd,West Ham,Manchester Utd,4
+Crystal Palace vs Liverpool,Crystal Palace,Liverpool,4
+West Ham vs Arsenal,West Ham,Arsenal,4
+Nottingham vs Manchester Utd,Nottingham,Manchester Utd,4
+Aston Villa vs Arsenal,Aston Villa,Arsenal,4
+Chelsea vs Brighton,Chelsea,Brighton,4
+Aston Villa vs Newcastle,Aston Villa,Newcastle,4
+Newcastle vs Liverpool,Newcastle,Liverpool,4
+Nottingham vs Brighton,Nottingham,Brighton,4
+Leeds vs Brighton,Leeds,Brighton,4
+Arsenal vs Manchester City,Arsenal,Manchester City,4
+Leeds vs Manchester Utd,Leeds,Manchester Utd,4
+Leicester vs Arsenal,Leicester,Arsenal,4
+Everton vs Newcastle,Everton,Newcastle,4
+Crystal Palace vs Newcastle,Crystal Palace,Newcastle,4
+Brentford vs Newcastle,Brentford,Newcastle,4
+Fulham vs Manchester City,Fulham,Manchester City,4
+Crystal Palace vs Brighton,Crystal Palace,Brighton,4
+Bournemouth vs Newcastle,Bournemouth,Newcastle,4
+Tottenham vs Manchester City,Tottenham,Manchester City,4
+Everton vs Arsenal,Everton,Arsenal,4
+Wolves vs Liverpool,Wolves,Liverpool,4
+Bournemouth vs Manchester City,Bournemouth,Manchester City,4
+West Ham vs Newcastle,West Ham,Newcastle,4
+Chelsea vs Liverpool,Chelsea,Liverpool,4
+Bournemouth vs Brighton,Bournemouth,Brighton,4
+Newcastle vs Arsenal,Newcastle,Arsenal,4
+Leeds vs Liverpool,Leeds,Liverpool,4
+Southampton vs Manchester City,Southampton,Manchester City,4
+West Ham vs Liverpool,West Ham,Liverpool,4
