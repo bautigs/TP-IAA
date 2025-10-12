@@ -1,6 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
 def analyze_clusters():
     """
@@ -156,12 +157,98 @@ def create_cluster_characteristics_plot(cluster_data):
     print("Archivo guardado: plots/cluster_characteristics.png")
     print("=" * 80)
 
+def create_individual_characteristic_plots(cluster_data):
+    """
+    Crea gráficos individuales para cada característica en una carpeta separada.
+    """
+    
+    # Crear directorio para los gráficos individuales
+    os.makedirs('plots/caracteristicas_individuales', exist_ok=True)
+    
+    clusters = sorted(cluster_data.keys())
+    cluster_labels = [f'Cluster {c}' for c in clusters]
+    
+    # Extraer datos
+    goals = [cluster_data[c]['total_goals'] for c in clusters]
+    possession = [cluster_data[c]['possession_diff'] for c in clusters]
+    shots = [cluster_data[c]['total_shots'] for c in clusters]
+    position = [cluster_data[c]['position_diff'] for c in clusters]
+    
+    colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7']
+    
+    # 1. Gráfico de Goles promedio
+    fig, ax = plt.subplots(figsize=(10, 6))
+    bars = ax.bar(cluster_labels, goals, color=colors[:len(clusters)])
+    ax.set_title('Goles Promedio por Partido', fontweight='bold', fontsize=14)
+    ax.set_xlabel('Cluster', fontsize=12)
+    ax.set_ylabel('Goles', fontsize=12)
+    ax.grid(axis='y', alpha=0.3)
+    for bar, val in zip(bars, goals):
+        ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.05, 
+                f'{val:.2f}', ha='center', va='bottom', fontsize=10, fontweight='bold')
+    plt.tight_layout()
+    plt.savefig('plots/caracteristicas_individuales/1_goles_promedio.png', dpi=300, bbox_inches='tight')
+    plt.close()
+    
+    # 2. Gráfico de Diferencia de posesión
+    fig, ax = plt.subplots(figsize=(10, 6))
+    bars = ax.bar(cluster_labels, possession, color=colors[:len(clusters)])
+    ax.set_title('Diferencia de Posesión Promedio', fontweight='bold', fontsize=14)
+    ax.set_xlabel('Cluster', fontsize=12)
+    ax.set_ylabel('Diferencia (%)', fontsize=12)
+    ax.grid(axis='y', alpha=0.3)
+    for bar, val in zip(bars, possession):
+        ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.3, 
+                f'{val:.2f}', ha='center', va='bottom', fontsize=10, fontweight='bold')
+    plt.tight_layout()
+    plt.savefig('plots/caracteristicas_individuales/2_diferencia_posesion.png', dpi=300, bbox_inches='tight')
+    plt.close()
+    
+    # 3. Gráfico de Tiros al arco
+    fig, ax = plt.subplots(figsize=(10, 6))
+    bars = ax.bar(cluster_labels, shots, color=colors[:len(clusters)])
+    ax.set_title('Tiros al Arco Promedio', fontweight='bold', fontsize=14)
+    ax.set_xlabel('Cluster', fontsize=12)
+    ax.set_ylabel('Tiros', fontsize=12)
+    ax.grid(axis='y', alpha=0.3)
+    for bar, val in zip(bars, shots):
+        ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.1, 
+                f'{val:.2f}', ha='center', va='bottom', fontsize=10, fontweight='bold')
+    plt.tight_layout()
+    plt.savefig('plots/caracteristicas_individuales/3_tiros_al_arco.png', dpi=300, bbox_inches='tight')
+    plt.close()
+    
+    # 4. Gráfico de Diferencia de posiciones
+    fig, ax = plt.subplots(figsize=(10, 6))
+    bars = ax.bar(cluster_labels, position, color=colors[:len(clusters)])
+    ax.set_title('Diferencia de Posiciones en Tabla', fontweight='bold', fontsize=14)
+    ax.set_xlabel('Cluster', fontsize=12)
+    ax.set_ylabel('Diferencia', fontsize=12)
+    ax.grid(axis='y', alpha=0.3)
+    for bar, val in zip(bars, position):
+        ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.2, 
+                f'{val:.2f}', ha='center', va='bottom', fontsize=10, fontweight='bold')
+    plt.tight_layout()
+    plt.savefig('plots/caracteristicas_individuales/4_diferencia_posiciones.png', dpi=300, bbox_inches='tight')
+    plt.close()
+    
+    print("\n" + "=" * 80)
+    print("GRÁFICOS INDIVIDUALES GENERADOS")
+    print("=" * 80)
+    print("Carpeta: plots/caracteristicas_individuales/")
+    print("  - 1_goles_promedio.png")
+    print("  - 2_diferencia_posesion.png")
+    print("  - 3_tiros_al_arco.png")
+    print("  - 4_diferencia_posiciones.png")
+    print("=" * 80)
+
 if __name__ == "__main__":
     print("INICIANDO ANÁLISIS DE CLUSTERS...")
     print()
     
     cluster_data, merged_df = analyze_clusters()
     create_cluster_characteristics_plot(cluster_data)
+    create_individual_characteristic_plots(cluster_data)
     
     print("\n" + "=" * 80)
     print("ANÁLISIS COMPLETADO")

@@ -2,6 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
+import os
 
 # Read the clustered data
 df = pd.read_csv('data/clustered_matches.csv')
@@ -37,11 +38,11 @@ plt.rcParams['figure.facecolor'] = 'white'
 fig, ax = plt.subplots(figsize=(10, max(8, len(team_names) * 0.4)))
 sns.heatmap(matrix, annot=True, fmt='d', cmap='YlOrRd', 
             xticklabels=[f'Cluster {c}' for c in clusters],
-            yticklabels=team_names, cbar_kws={'label': 'Number of Matches'},
+            yticklabels=team_names, cbar_kws={'label': 'Número de Partidos'},
             linewidths=0.5, ax=ax)
-ax.set_title('Team Distribution Across Clusters (Heatmap)', fontsize=14, fontweight='bold', pad=20)
+ax.set_title('Distribución de Equipos por Cluster (Mapa de Calor)', fontsize=14, fontweight='bold', pad=20)
 ax.set_xlabel('Cluster', fontsize=12)
-ax.set_ylabel('Team', fontsize=12)
+ax.set_ylabel('Equipo', fontsize=12)
 plt.tight_layout()
 plt.savefig('plots/cluster_heatmap.png', dpi=300, bbox_inches='tight')
 plt.close()
@@ -59,9 +60,9 @@ for i, cluster in enumerate(clusters):
            color=colors[i], edgecolor='white', linewidth=1)
     bottom += values
 
-ax.set_xlabel('Team', fontsize=12, fontweight='bold')
-ax.set_ylabel('Number of Matches', fontsize=12, fontweight='bold')
-ax.set_title('Team Participation Across Clusters (Stacked Bar)', fontsize=14, fontweight='bold', pad=20)
+ax.set_xlabel('Equipo', fontsize=12, fontweight='bold')
+ax.set_ylabel('Número de Partidos', fontsize=12, fontweight='bold')
+ax.set_title('Participación de Equipos por Cluster (Barras Apiladas)', fontsize=14, fontweight='bold', pad=20)
 ax.set_xticks(x_pos)
 ax.set_xticklabels(team_names, rotation=45, ha='right')
 ax.legend(title='Cluster', loc='upper right')
@@ -86,11 +87,11 @@ for i, team in enumerate(team_names):
         bottom += values
 
 ax.set_xlabel('Cluster', fontsize=12, fontweight='bold')
-ax.set_ylabel('Number of Matches', fontsize=12, fontweight='bold')
-ax.set_title('Cluster Composition by Team (Stacked Bar)', fontsize=14, fontweight='bold', pad=20)
+ax.set_ylabel('Número de Partidos', fontsize=12, fontweight='bold')
+ax.set_title('Composición de Clusters por Equipo (Barras Apiladas)', fontsize=14, fontweight='bold', pad=20)
 ax.set_xticks(x_pos)
 ax.set_xticklabels([f'Cluster {c}' for c in clusters])
-ax.legend(title='Team', bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=8)
+ax.legend(title='Equipo', bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=8)
 ax.grid(axis='y', alpha=0.3)
 plt.tight_layout()
 plt.savefig('plots/cluster_stacked_bar_clusters.png', dpi=300, bbox_inches='tight')
@@ -108,9 +109,9 @@ for i, cluster in enumerate(clusters):
     ax.bar(x_pos + offset, values, bar_width, label=f'Cluster {cluster}',
            color=colors[i], edgecolor='white', linewidth=1)
 
-ax.set_xlabel('Team', fontsize=12, fontweight='bold')
-ax.set_ylabel('Number of Matches', fontsize=12, fontweight='bold')
-ax.set_title('Team Distribution Across Clusters (Grouped Bar)', fontsize=14, fontweight='bold', pad=20)
+ax.set_xlabel('Equipo', fontsize=12, fontweight='bold')
+ax.set_ylabel('Número de Partidos', fontsize=12, fontweight='bold')
+ax.set_title('Distribución de Equipos por Cluster (Barras Agrupadas)', fontsize=14, fontweight='bold', pad=20)
 ax.set_xticks(x_pos)
 ax.set_xticklabels(team_names, rotation=45, ha='right')
 ax.legend(title='Cluster', loc='upper right')
@@ -133,9 +134,9 @@ for i, cluster in enumerate(clusters):
            color=colors[i], edgecolor='white', linewidth=1)
     bottom += values
 
-ax.set_xlabel('Team', fontsize=12, fontweight='bold')
-ax.set_ylabel('Percentage of Matches (%)', fontsize=12, fontweight='bold')
-ax.set_title('Team Cluster Distribution (100% Stacked)', fontsize=14, fontweight='bold', pad=20)
+ax.set_xlabel('Equipo', fontsize=12, fontweight='bold')
+ax.set_ylabel('Porcentaje de Partidos (%)', fontsize=12, fontweight='bold')
+ax.set_title('Distribución de Clusters por Equipo (100% Apilado)', fontsize=14, fontweight='bold', pad=20)
 ax.set_xticks(x_pos)
 ax.set_xticklabels(team_names, rotation=45, ha='right')
 ax.legend(title='Cluster', loc='upper right')
@@ -144,7 +145,7 @@ plt.tight_layout()
 plt.savefig('plots/cluster_percentage_stacked.png', dpi=300, bbox_inches='tight')
 plt.close()
 
-# 6. PIE CHARTS (one per cluster)
+# 6. PIE CHARTS (one per cluster) - Combined view
 n_clusters_to_plot = len(clusters)
 fig, axes = plt.subplots(1, n_clusters_to_plot, figsize=(6*n_clusters_to_plot, 6))
 if n_clusters_to_plot == 1:
@@ -160,23 +161,61 @@ for i, cluster in enumerate(clusters):
     if len(sizes) > 0:
         axes[i].pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90,
                    colors=plt.cm.Set3(np.linspace(0, 1, len(sizes))))
-        axes[i].set_title(f'Cluster {cluster} Composition', fontsize=12, fontweight='bold')
+        axes[i].set_title(f'Composición Cluster {cluster}', fontsize=12, fontweight='bold')
     else:
-        axes[i].text(0.5, 0.5, 'No Data', ha='center', va='center')
-        axes[i].set_title(f'Cluster {cluster} Composition', fontsize=12, fontweight='bold')
+        axes[i].text(0.5, 0.5, 'Sin Datos', ha='center', va='center')
+        axes[i].set_title(f'Composición Cluster {cluster}', fontsize=12, fontweight='bold')
 
 plt.tight_layout()
 plt.savefig('plots/cluster_pie_charts.png', dpi=300, bbox_inches='tight')
 plt.close()
 
+# 7. INDIVIDUAL PIE CHARTS (one file per cluster)
+# Create directory for individual cluster plots
+os.makedirs('plots/clusters_individuales', exist_ok=True)
+
+for cluster in clusters:
+    fig, ax = plt.subplots(figsize=(10, 8))
+    cluster_data = matrix[:, cluster]
+    
+    # Only show teams with matches in this cluster
+    mask = cluster_data > 0
+    labels = [team_names[j] for j in range(len(team_names)) if mask[j]]
+    sizes = cluster_data[mask]
+    
+    if len(sizes) > 0:
+        wedges, texts, autotexts = ax.pie(sizes, labels=labels, autopct='%1.1f%%', 
+                                           startangle=90,
+                                           colors=plt.cm.Set3(np.linspace(0, 1, len(sizes))),
+                                           textprops={'fontsize': 10})
+        
+        # Make percentage text bold
+        for autotext in autotexts:
+            autotext.set_color('white')
+            autotext.set_fontweight('bold')
+            autotext.set_fontsize(11)
+        
+        ax.set_title(f'Composición Cluster {cluster}\n({int(cluster_data.sum())} partidos)', 
+                    fontsize=14, fontweight='bold', pad=20)
+    else:
+        ax.text(0.5, 0.5, 'Sin Datos', ha='center', va='center', fontsize=16)
+        ax.set_title(f'Composición Cluster {cluster}', fontsize=14, fontweight='bold', pad=20)
+    
+    plt.tight_layout()
+    plt.savefig(f'plots/clusters_individuales/cluster_{cluster}.png', dpi=300, bbox_inches='tight')
+    plt.close()
+
 print("=" * 80)
-print("VISUALIZATIONS CREATED SUCCESSFULLY")
+print("VISUALIZACIONES CREADAS EXITOSAMENTE")
 print("=" * 80)
-print("\nGenerated files:")
-print("  1. cluster_heatmap.png - Color-coded matrix of team-cluster frequencies")
-print("  2. cluster_stacked_bar_teams.png - Teams with cluster breakdown")
-print("  3. cluster_stacked_bar_clusters.png - Clusters with team composition")
-print("  4. cluster_grouped_bar.png - Side-by-side comparison by team")
-print("  5. cluster_percentage_stacked.png - Normalized 100% stacked bars")
-print("  6. cluster_pie_charts.png - Cluster composition pie charts")
+print("\nArchivos generados:")
+print("  1. cluster_heatmap.png - Matriz de frecuencias equipo-cluster")
+print("  2. cluster_stacked_bar_teams.png - Equipos con desglose por cluster")
+print("  3. cluster_stacked_bar_clusters.png - Clusters con composición de equipos")
+print("  4. cluster_grouped_bar.png - Comparación lado a lado por equipo")
+print("  5. cluster_percentage_stacked.png - Barras apiladas 100% normalizadas")
+print("  6. cluster_pie_charts.png - Gráficos de torta de composición de clusters")
+print("\nCarpeta 'clusters_individuales' con gráficos por cluster:")
+for cluster in clusters:
+    print(f"  - cluster_{cluster}.png")
 print("\n" + "=" * 80)
