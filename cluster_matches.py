@@ -49,11 +49,9 @@ centers_df.index = [f'Cluster {i}' for i in range(optimal_k)]
 
 # Save results
 df_output = df[['match_id', 'home_team', 'away_team', 'cluster']]
-#sort by cluster for better readability
 df_output = df_output.sort_values(by='cluster')
 df_output.to_csv('data/clustered_matches.csv', index=False)
 
-# Print summary statistics for each cluster
 print(f"K-Means Clustering Results (k={optimal_k})")
 print("=" * 60)
 print(f"\nTotal matches: {len(df)}")
