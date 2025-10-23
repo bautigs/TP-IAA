@@ -1,0 +1,24 @@
+DBSCAN (Density-Based Spatial Clustering of Applications with Noise) es un algoritmo de clustering basado en densidad que agrupa puntos que están cerca entre sí. A diferencia de K-Means que requiere especificar el número de clusters de antemano, DBSCAN:
+
+Descubre automáticamente el número de clusters basándose en la densidad de los datos
+Identifica outliers/ruido: puntos que no pertenecen a ningún cluster denso
+Forma clusters de formas arbitrarias: no asume que los clusters son esféricos
+
+
+Preprocesamiento: Estandariza los datos y aplica PCA (reducción dimensional) porque DBSCAN sufre con muchas dimensiones
+Búsqueda de parámetros óptimos:
+
+Usa el "gráfico k-distance" para sugerir valores de eps apropiados
+Prueba múltiples combinaciones de eps y min_samples
+Evalúa cada configuración con el silhouette score (calidad del clustering)
+
+Clustering final: Aplica DBSCAN con los mejores parámetros encontrados
+
+
+
+al prinicipio (sin PCA) no encontraba ningún cluster porque había demasiadas dimensiones
+
+agregando PCA para reducir dimensiones empezo a funcionar mejor
+con PCA 0.95 encontró dos clusters, uno que eran todos partidos del liverpool
+con PCA 0.90 encontró dos clusters parecido al de antes, pero además dejo como outliers a varios partidos buenos (eps=4.331, min_samples=7)
+con PCA 0.80 muy parecido al de 0.95 ( eps=4.331, min_samples=7)
