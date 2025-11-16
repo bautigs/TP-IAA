@@ -34,10 +34,17 @@ matrix = np.array(team_cluster_matrix)
 sns.set_style("whitegrid")
 plt.rcParams['figure.facecolor'] = 'white'
 
+# Función para obtener etiqueta de cluster
+def get_cluster_label(cluster):
+    if cluster == -1:
+        return 'Ruido'
+    else:
+        return f'Cluster {cluster}'
+
 # 1. HEATMAP
 fig, ax = plt.subplots(figsize=(10, max(8, len(team_names) * 0.4)))
 sns.heatmap(matrix, annot=True, fmt='d', cmap='YlOrRd', 
-            xticklabels=[f'Cluster {c}' for c in clusters],
+            xticklabels=[get_cluster_label(c) for c in clusters],
             yticklabels=team_names, cbar_kws={'label': 'Número de Partidos'},
             linewidths=0.5, ax=ax)
 ax.set_title('Distribución de Equipos por Cluster (Mapa de Calor)', fontsize=14, fontweight='bold', pad=20)
@@ -56,7 +63,7 @@ colors = plt.cm.Set3(np.linspace(0, 1, len(clusters)))
 
 for i, cluster in enumerate(clusters):
     values = matrix[:, i]
-    ax.bar(x_pos, values, bottom=bottom, label=f'Cluster {cluster}', 
+    ax.bar(x_pos, values, bottom=bottom, label=get_cluster_label(cluster), 
            color=colors[i], edgecolor='white', linewidth=1)
     bottom += values
 
@@ -90,7 +97,7 @@ ax.set_xlabel('Cluster', fontsize=12, fontweight='bold')
 ax.set_ylabel('Número de Partidos', fontsize=12, fontweight='bold')
 ax.set_title('Composición de Clusters por Equipo (Barras Apiladas)', fontsize=14, fontweight='bold', pad=20)
 ax.set_xticks(x_pos)
-ax.set_xticklabels([f'Cluster {c}' for c in clusters])
+ax.set_xticklabels([get_cluster_label(c) for c in clusters])
 ax.legend(title='Equipo', bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=8)
 ax.grid(axis='y', alpha=0.3)
 plt.tight_layout()
@@ -106,7 +113,7 @@ x_pos = np.arange(len(team_names))
 for i, cluster in enumerate(clusters):
     offset = (i - n_clusters/2 + 0.5) * bar_width
     values = matrix[:, i]
-    ax.bar(x_pos + offset, values, bar_width, label=f'Cluster {cluster}',
+    ax.bar(x_pos + offset, values, bar_width, label=get_cluster_label(cluster),
            color=colors[i], edgecolor='white', linewidth=1)
 
 ax.set_xlabel('Equipo', fontsize=12, fontweight='bold')
@@ -130,7 +137,7 @@ bottom = np.zeros(len(team_names))
 
 for i, cluster in enumerate(clusters):
     values = matrix_pct[:, i]
-    ax.bar(x_pos, values, bottom=bottom, label=f'Cluster {cluster}',
+    ax.bar(x_pos, values, bottom=bottom, label=get_cluster_label(cluster),
            color=colors[i], edgecolor='white', linewidth=1)
     bottom += values
 
@@ -161,10 +168,10 @@ for i, cluster in enumerate(clusters):
     if len(sizes) > 0:
         axes[i].pie(sizes, labels=labels, autopct='%1.1f%%', startangle=90,
                    colors=plt.cm.Set3(np.linspace(0, 1, len(sizes))))
-        axes[i].set_title(f'Composición Cluster {cluster}', fontsize=12, fontweight='bold')
+        axes[i].set_title(f'Composición {get_cluster_label(cluster)}', fontsize=12, fontweight='bold')
     else:
         axes[i].text(0.5, 0.5, 'Sin Datos', ha='center', va='center')
-        axes[i].set_title(f'Composición Cluster {cluster}', fontsize=12, fontweight='bold')
+        axes[i].set_title(f'Composición {get_cluster_label(cluster)}', fontsize=12, fontweight='bold')
 
 plt.tight_layout()
 plt.savefig('plots/clustering_nuevo/cluster_pie_charts.png', dpi=300, bbox_inches='tight')
@@ -174,9 +181,9 @@ plt.close()
 # Create directory for individual cluster plots
 os.makedirs('plots/clustering_nuevo/clusters_individuales', exist_ok=True)
 
-for cluster in clusters:
+for i, cluster in enumerate(clusters):
     fig, ax = plt.subplots(figsize=(10, 8))
-    cluster_data = matrix[:, cluster]
+    cluster_data = matrix[:, i]  # Usar índice i en lugar de cluster
     
     # Only show teams with matches in this cluster
     mask = cluster_data > 0
@@ -195,13 +202,16 @@ for cluster in clusters:
             autotext.set_fontweight('bold')
             autotext.set_fontsize(11)
         
-        ax.set_title(f'Composición Cluster {cluster}\n({int(cluster_data.sum())} partidos)', 
+        cluster_label = get_cluster_label(cluster)
+        ax.set_title(f'Composición {cluster_label}\n({int(cluster_data.sum())} partidos)', 
                     fontsize=14, fontweight='bold', pad=20)
     else:
+        cluster_label = get_cluster_label(cluster)
         ax.text(0.5, 0.5, 'Sin Datos', ha='center', va='center', fontsize=16)
-        ax.set_title(f'Composición Cluster {cluster}', fontsize=14, fontweight='bold', pad=20)
+        ax.set_title(f'Composición {cluster_label}', fontsize=14, fontweight='bold', pad=20)
     
     plt.tight_layout()
+    # Usar el valor del cluster para el nombre del archivo (puede ser -1)
     plt.savefig(f'plots/clustering_nuevo/clusters_individuales/cluster_{cluster}.png', dpi=300, bbox_inches='tight')
     plt.close()
 
