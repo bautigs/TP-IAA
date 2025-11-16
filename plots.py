@@ -5,7 +5,7 @@ import numpy as np
 import os
 
 # Read the clustered data
-df = pd.read_csv('data/clustered_matches.csv')
+df = pd.read_csv('data/clustered_matches_dbscan_0_9_PCA.csv')
 
 # Prepare data
 all_teams = pd.concat([df['home_team'], df['away_team']]).unique()
@@ -44,7 +44,7 @@ ax.set_title('Distribución de Equipos por Cluster (Mapa de Calor)', fontsize=14
 ax.set_xlabel('Cluster', fontsize=12)
 ax.set_ylabel('Equipo', fontsize=12)
 plt.tight_layout()
-plt.savefig('plots/cluster_heatmap.png', dpi=300, bbox_inches='tight')
+plt.savefig('plots/clustering_nuevo/cluster_heatmap.png', dpi=300, bbox_inches='tight')
 plt.close()
 
 # 2. STACKED BAR CHART (Teams)
@@ -68,7 +68,7 @@ ax.set_xticklabels(team_names, rotation=45, ha='right')
 ax.legend(title='Cluster', loc='upper right')
 ax.grid(axis='y', alpha=0.3)
 plt.tight_layout()
-plt.savefig('plots/cluster_stacked_bar_teams.png', dpi=300, bbox_inches='tight')
+plt.savefig('plots/clustering_nuevo/cluster_stacked_bar_teams.png', dpi=300, bbox_inches='tight')
 plt.close()
 
 # 3. STACKED BAR CHART (Clusters perspective)
@@ -94,7 +94,7 @@ ax.set_xticklabels([f'Cluster {c}' for c in clusters])
 ax.legend(title='Equipo', bbox_to_anchor=(1.05, 1), loc='upper left', fontsize=8)
 ax.grid(axis='y', alpha=0.3)
 plt.tight_layout()
-plt.savefig('plots/cluster_stacked_bar_clusters.png', dpi=300, bbox_inches='tight')
+plt.savefig('plots/clustering_nuevo/cluster_stacked_bar_clusters.png', dpi=300, bbox_inches='tight')
 plt.close()
 
 # 4. GROUPED BAR CHART
@@ -117,7 +117,7 @@ ax.set_xticklabels(team_names, rotation=45, ha='right')
 ax.legend(title='Cluster', loc='upper right')
 ax.grid(axis='y', alpha=0.3)
 plt.tight_layout()
-plt.savefig('plots/cluster_grouped_bar.png', dpi=300, bbox_inches='tight')
+plt.savefig('plots/clustering_nuevo/cluster_grouped_bar.png', dpi=300, bbox_inches='tight')
 plt.close()
 
 # 5. PERCENTAGE STACKED BAR (normalized)
@@ -142,7 +142,7 @@ ax.set_xticklabels(team_names, rotation=45, ha='right')
 ax.legend(title='Cluster', loc='upper right')
 ax.grid(axis='y', alpha=0.3)
 plt.tight_layout()
-plt.savefig('plots/cluster_percentage_stacked.png', dpi=300, bbox_inches='tight')
+plt.savefig('plots/clustering_nuevo/cluster_percentage_stacked.png', dpi=300, bbox_inches='tight')
 plt.close()
 
 # 6. PIE CHARTS (one per cluster) - Combined view
@@ -167,12 +167,12 @@ for i, cluster in enumerate(clusters):
         axes[i].set_title(f'Composición Cluster {cluster}', fontsize=12, fontweight='bold')
 
 plt.tight_layout()
-plt.savefig('plots/cluster_pie_charts.png', dpi=300, bbox_inches='tight')
+plt.savefig('plots/clustering_nuevo/cluster_pie_charts.png', dpi=300, bbox_inches='tight')
 plt.close()
 
 # 7. INDIVIDUAL PIE CHARTS (one file per cluster)
 # Create directory for individual cluster plots
-os.makedirs('plots/clusters_individuales', exist_ok=True)
+os.makedirs('plots/clustering_nuevo/clusters_individuales', exist_ok=True)
 
 for cluster in clusters:
     fig, ax = plt.subplots(figsize=(10, 8))
@@ -202,7 +202,7 @@ for cluster in clusters:
         ax.set_title(f'Composición Cluster {cluster}', fontsize=14, fontweight='bold', pad=20)
     
     plt.tight_layout()
-    plt.savefig(f'plots/clusters_individuales/cluster_{cluster}.png', dpi=300, bbox_inches='tight')
+    plt.savefig(f'plots/clustering_nuevo/clusters_individuales/cluster_{cluster}.png', dpi=300, bbox_inches='tight')
     plt.close()
 
 print("=" * 80)
