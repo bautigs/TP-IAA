@@ -31,8 +31,8 @@ def analyze_clusters_dbscan():
         total_goals = (cluster_matches['goals_self_home'] + cluster_matches['goals_rival_home']).mean()
         possession_diff = abs(cluster_matches['avg_posesion_self_home'] - cluster_matches['avg_posesion_rival_home']).mean()
         total_shots = cluster_matches['tiros_al_arcototales_home'].mean()
-        # Posesión promedio del equipo local
-        possession_avg = cluster_matches['avg_posesion_self_home'].mean()
+        # Diferencia de posiciones en la tabla (igual que KMeans)
+        position_diff = abs(cluster_matches['home_position'] - cluster_matches['away_position']).mean()
         
         # Guardar datos
         cluster_data[cluster] = {
@@ -40,7 +40,7 @@ def analyze_clusters_dbscan():
             'total_goals': total_goals,
             'possession_diff': possession_diff,
             'total_shots': total_shots,
-            'possession_avg': possession_avg
+            'position_diff': position_diff
         }
         
         # Etiqueta para el cluster
@@ -84,14 +84,14 @@ def analyze_clusters_dbscan():
             print(f"   Partidos con baja intensidad ofensiva")
         print()
         
-        # Característica 4: Posesión promedio
-        print(f"4. Posesión promedio del equipo local: {possession_avg:.2f}%")
-        if possession_avg >= 55:
-            print(f"   Partidos con dominio de posesión del equipo local")
-        elif possession_avg >= 45:
-            print(f"   Partidos con posesión equilibrada")
+        # Característica 4: Diferencia de posiciones
+        print(f"4. Diferencia de posiciones en la tabla: {position_diff:.2f}")
+        if position_diff >= 10:
+            print(f"   Partidos entre equipos de diferentes niveles")
+        elif position_diff >= 5:
+            print(f"   Partidos con cierta diferencia de nivel")
         else:
-            print(f"   Partidos con menor posesión del equipo local")
+            print(f"   Partidos entre equipos de nivel similar")
         
         print()
     
@@ -113,7 +113,7 @@ def create_individual_characteristic_plots_dbscan(cluster_data):
     goals = [cluster_data[c]['total_goals'] for c in clusters]
     possession_diff = [cluster_data[c]['possession_diff'] for c in clusters]
     shots = [cluster_data[c]['total_shots'] for c in clusters]
-    possession_avg = [cluster_data[c]['possession_avg'] for c in clusters]
+    position_diff = [cluster_data[c]['position_diff'] for c in clusters]
     
     # Colores: usar gris para ruido, otros colores para clusters normales
     colors = []
@@ -165,18 +165,18 @@ def create_individual_characteristic_plots_dbscan(cluster_data):
     plt.savefig('plots/caracteristicas_individuales/3_tiros_al_arco_dbscan.png', dpi=300, bbox_inches='tight')
     plt.close()
     
-    # 4. Gráfico de Posesión promedio
+    # 4. Gráfico de Diferencia de posiciones
     fig, ax = plt.subplots(figsize=(10, 6))
-    bars = ax.bar(cluster_labels, possession_avg, color=colors[:len(clusters)])
-    ax.set_title('Posesión Promedio del Equipo Local - DBSCAN', fontweight='bold', fontsize=14)
+    bars = ax.bar(cluster_labels, position_diff, color=colors[:len(clusters)])
+    ax.set_title('Diferencia de Posiciones en Tabla - DBSCAN', fontweight='bold', fontsize=14)
     ax.set_xlabel('Cluster', fontsize=12)
-    ax.set_ylabel('Posesión (%)', fontsize=12)
+    ax.set_ylabel('Diferencia', fontsize=12)
     ax.grid(axis='y', alpha=0.3)
-    for bar, val in zip(bars, possession_avg):
-        ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.5, 
+    for bar, val in zip(bars, position_diff):
+        ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.2, 
                 f'{val:.2f}', ha='center', va='bottom', fontsize=10, fontweight='bold')
     plt.tight_layout()
-    plt.savefig('plots/caracteristicas_individuales/4_posesion_dbscan.png', dpi=300, bbox_inches='tight')
+    plt.savefig('plots/caracteristicas_individuales/4_diferencia_posiciones_dbscan.png', dpi=300, bbox_inches='tight')
     plt.close()
     
     print("\n" + "=" * 80)
@@ -186,7 +186,7 @@ def create_individual_characteristic_plots_dbscan(cluster_data):
     print("  - 1_goles_promedio_dbscan.png")
     print("  - 2_diferencia_posesion_dbscan.png")
     print("  - 3_tiros_al_arco_dbscan.png")
-    print("  - 4_posesion_dbscan.png")
+    print("  - 4_diferencia_posiciones_dbscan.png")
     print("=" * 80)
 
 if __name__ == "__main__":
